@@ -23,6 +23,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(rust-gene-calc
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        genecalculator.h genecalculator.cpp
         consts.h
         seed.h
     )
