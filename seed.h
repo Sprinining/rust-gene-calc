@@ -13,7 +13,9 @@ using std::size_t;
 // Seed 结构体表示一个种子，包含6个基因
 struct Seed {
     // 六个基因，每个基因类型为 AppConsts::GeneType 枚举
-    array<AppConsts::GeneType, 6> genes_;
+    array<AppConsts::GeneType, 6> genes_ = {
+        AppConsts::GeneType::X, AppConsts::GeneType::X, AppConsts::GeneType::X,
+        AppConsts::GeneType::X, AppConsts::GeneType::X, AppConsts::GeneType::X};
 
     // 判断两个 Seed 是否相等（基因逐个比较）
     bool operator==(const Seed &other) const { return genes_ == other.genes_; }
