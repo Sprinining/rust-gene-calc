@@ -7,11 +7,6 @@
 #include <unordered_set>
 #include <vector>
 
-using std::array;
-using std::shared_ptr;
-using std::unordered_set;
-using std::vector;
-
 class GeneCalculator {
 public:
     GeneCalculator();
@@ -26,18 +21,18 @@ public:
     void calculate();
 
     // 获取用于杂交的四个种子
-    const array<shared_ptr<Seed>, 4> &getBreedingSeeds() const;
+    const std::array<std::shared_ptr<Seed>, 4> &getBreedingSeeds() const;
 
     // 获取最终能得到的最好的种子
     const Seed &getOffspringSeed() const;
 
 private:
     // 所有的种子
-    vector<shared_ptr<Seed>> seeds_;
+    std::vector<std::shared_ptr<Seed>> seeds_;
     // 用于对种子去重
-    unordered_set<shared_ptr<Seed>> seeds_set_;
+    std::unordered_set<std::shared_ptr<Seed>> seeds_set_;
     // 四个角落用于杂交的种子
-    array<shared_ptr<Seed>, 4> breeding_seeds_;
+    std::array<std::shared_ptr<Seed>, 4> breeding_seeds_;
     // 中心位置杂交出的种子
     Seed offspring_seed_;
 
