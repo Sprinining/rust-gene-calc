@@ -26,6 +26,9 @@ public:
     // 获取最终能得到的最好的种子
     const Seed &getOffspringSeed() const;
 
+    // 将基因枚举转成字符
+    static char geneTypeToChar(AppConsts::GeneType);
+
 private:
     // 所有的种子
     std::vector<std::shared_ptr<Seed>> seeds_;
@@ -35,12 +38,18 @@ private:
     std::array<std::shared_ptr<Seed>, 4> breeding_seeds_;
     // 中心位置杂交出的种子
     Seed offspring_seed_;
+    // 最好的种子的优劣程度
+    int best_quality_{-100};
 
     // 计算种子的质量，数值越大种子的基因越好
-    int calcQuality() const;
+    int calcQuality(const Seed &) const;
 
     // 根据四个角落计算中心杂交出的种子基因
-    void calcOffspringSeed();
+    Seed calcOffspringSeed(const std::array<std::shared_ptr<Seed>, 4> &) const;
+
+    // 打印杂交结果
+    void printBreedingResult(const std::array<std::shared_ptr<Seed>, 4> &,
+                             const Seed &) const;
 };
 
 #endif // GENECALCULATOR_H
