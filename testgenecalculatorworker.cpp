@@ -1,5 +1,7 @@
 #include "testgenecalculatorworker.h"
 #include "genecalculator.h"
+#include <QDebug>
+#include <QElapsedTimer>
 #include <random>
 
 // 构造函数，初始化种子数量和父对象指针
@@ -9,6 +11,9 @@ TestGeneCalculatorWorker::TestGeneCalculatorWorker(int seedCount,
 
 // 处理槽函数，执行基因计算的耗时任务
 void TestGeneCalculatorWorker::process() {
+    QElapsedTimer timer;
+    timer.start();
+
     GeneCalculator calculator;
 
     // 根据传入的数量生成随机种子，加入计算器
@@ -19,6 +24,9 @@ void TestGeneCalculatorWorker::process() {
 
     // 执行计算，找到最佳杂交结果
     calculator.calculate();
+
+    qint64 elapsedMs = timer.elapsed();
+    qDebug() << "Gene calculation took" << elapsedMs << "milliseconds";
 
     // 发射信号，传递最优子代基因
     emit resultReady(calculator.getOffspringSeed());
