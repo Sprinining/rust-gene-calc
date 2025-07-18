@@ -50,6 +50,10 @@ private:
     // 打印杂交结果
     void printBreedingResult(const std::array<std::shared_ptr<Seed>, 4> &,
                              const Seed &) const;
+
+    // 四个基因（顺序无关）唯一映射成一个 uint64_t 整数键，方便用作哈希表 key，实现去重缓存（记忆化）
+    uint64_t encodeGeneKeySorted(AppConsts::GeneType g1, AppConsts::GeneType g2,
+                                 AppConsts::GeneType g3, AppConsts::GeneType g4);
 };
 
 #endif // GENECALCULATOR_H

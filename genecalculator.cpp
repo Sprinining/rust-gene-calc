@@ -24,6 +24,7 @@ void GeneCalculator::clearSeeds() {
     best_quality_ = -100;
 }
 
+// todo: 多线程进行优化
 void GeneCalculator::calculate() {
     std::array<std::shared_ptr<Seed>, 4> breeding_seeds;
     int n = seeds_.size();
@@ -48,6 +49,9 @@ void GeneCalculator::calculate() {
                         breeding_seeds_ = breeding_seeds;
                         offspring_seed_ = std::move(offspring);
                     }
+                    // 最优解已经找到
+                    if (best_quality_ == 100)
+                        return;
                 }
             }
         }
@@ -87,6 +91,8 @@ int GeneCalculator::calcQuality(const Seed &offspring) const {
     return score;
 }
 
+// todo: 可以边计算每个位置的基因，边估值，对明显不会超过 best_quality_
+// 的情况进行剪枝
 Seed GeneCalculator::calcOffspringSeed(
     const std::array<std::shared_ptr<Seed>, 4> &breeding_seeds) const {
     Seed result;
@@ -186,4 +192,17 @@ void GeneCalculator::printBreedingResult(
         offspringLine += ' ';
     }
     qDebug().noquote() << offspringLine;
+}
+
+uint64_t GeneCalculator::encodeGeneKeySorted(AppConsts::GeneType g1,
+                                             AppConsts::GeneType g2,
+                                             AppConsts::GeneType g3,
+                                             AppConsts::GeneType g4) {
+    std::array<uint8_t, 4> genes = {
+                                    static_cast<uint8_t>(g1), static_cast<uint8_t>(g2),
+        static_cast<uint8_t>(g3), static_cast<uint8_t>(g4)};
+    // 消除顺序影响
+    std::sort(genes.begin(), genes.end());
+    return (uint64_t(genes[0]) << 24) | (uint64_t(genes[1]) << 16) |
+           (uint64_t(genes[2]) << 8) | (uint64_t(genes[3]));
 }
