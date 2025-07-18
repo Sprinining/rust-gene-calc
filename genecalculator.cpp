@@ -169,7 +169,7 @@ void GeneCalculator::printBreedingResult(
     const Seed &offspring) const {
     qDebug() << "=== Breeding Round ===";
     for (size_t i = 0; i < 4; ++i) {
-        QString line = QString("Parent %1: ").arg(i + 1);
+        QString line = QString("Parent %1\t: ").arg(i + 1);
         if (breeding_seeds[i]) {
             for (const auto &gene : breeding_seeds[i]->genes_) {
                 line += geneTypeToChar(gene);
@@ -180,7 +180,7 @@ void GeneCalculator::printBreedingResult(
         }
         qDebug().noquote() << line;
     }
-    QString offspringLine = "Offspring : ";
+    QString offspringLine = "Offspring\t: ";
     for (const auto &gene : offspring.genes_) {
         offspringLine += geneTypeToChar(gene);
         offspringLine += ' ';
