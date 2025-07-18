@@ -6,6 +6,7 @@
 GeneCalculator::GeneCalculator() {
     // 预先分配容量，避免多次动态扩容
     seeds_.reserve(100);
+    gene_key_map_.reserve(6 * 6 * 6 * 6);
 }
 
 void GeneCalculator::addSeed(Seed seed) {
@@ -40,7 +41,7 @@ void GeneCalculator::calculate() {
                     int quality = calcQuality(offspring);
 
                     // 打印杂交结果
-                    printBreedingResult(breeding_seeds, offspring);
+                    // printBreedingResult(breeding_seeds, offspring);
 
                     // 如果更优，保存当前组合
                     if (quality > best_quality_) {
@@ -50,8 +51,8 @@ void GeneCalculator::calculate() {
                         offspring_seed_ = std::move(offspring);
                     }
                     // 最优解已经找到
-                    if (best_quality_ == 100)
-                        return;
+                    // if (best_quality_ == 100)
+                    //     return;
                 }
             }
         }
@@ -94,13 +95,24 @@ int GeneCalculator::calcQuality(const Seed &offspring) const {
 // todo: 可以边计算每个位置的基因，边估值，对明显不会超过 best_quality_
 // 的情况进行剪枝
 Seed GeneCalculator::calcOffspringSeed(
-    const std::array<std::shared_ptr<Seed>, 4> &breeding_seeds) const {
+    const std::array<std::shared_ptr<Seed>, 4> &breeding_seeds) {
     Seed result;
     // 随机数生成器（用于平票随机选择）
     static std::random_device rd;
     static std::mt19937 gen(rd());
 
     for (int i = 0; i < 6; ++i) {
+        // 算出 key
+        uint64_t key = encodeGeneKeySorted(
+            breeding_seeds[0]->genes_[i], breeding_seeds[1]->genes_[i],
+        breeding_seeds[2]->genes_[i], breeding_seeds[3]->genes_[i]);
+
+        // 查缓存表
+        if (gene_key_map_.find(key) != gene_key_map_.end()) {
+            result.genes_[i] = gene_key_map_.at(key);
+            // 跳过后面对这个 i 位置基因的重复计算
+            continue;
+        }
         std::unordered_map<AppConsts::GeneType, double> weight;
 
         // 统计每种基因在该位的总权重
@@ -140,6 +152,9 @@ Seed GeneCalculator::calcOffspringSeed(
         }
 
         result.genes_[i] = chosen;
+
+        // 保存到缓存表
+        gene_key_map_.emplace(key, chosen);
     }
 
     // 虽然 result 是局部变量，但现代 C++
@@ -194,10 +209,10 @@ void GeneCalculator::printBreedingResult(
     qDebug().noquote() << offspringLine;
 }
 
-uint64_t GeneCalculator::encodeGeneKeySorted(AppConsts::GeneType g1,
-                                             AppConsts::GeneType g2,
-                                             AppConsts::GeneType g3,
-                                             AppConsts::GeneType g4) {
+uint64_t GeneCalculator::encodeGeneKeySorted(const AppConsts::GeneType &g1,
+                                             const AppConsts::GeneType &g2,
+                                             const AppConsts::GeneType &g3,
+                                             const AppConsts::GeneType &g4) {
     std::array<uint8_t, 4> genes = {
                                     static_cast<uint8_t>(g1), static_cast<uint8_t>(g2),
         static_cast<uint8_t>(g3), static_cast<uint8_t>(g4)};
