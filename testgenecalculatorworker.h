@@ -16,8 +16,8 @@ public slots:
     void process();
 
 signals:
-    // 计算完成信号，传递计算得到的最优种子
-    void resultReady(const Seed &bestSeed);
+    // 计算完成信号，传递计算得到的最优方案和最优的种子
+    void resultReady(const std::array<std::shared_ptr<Seed>, 4> &breeding_seeds, const Seed &offspring_seed);
 
     // 处理完成信号，通知线程可以退出
     void finished();

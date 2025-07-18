@@ -29,7 +29,7 @@ void TestGeneCalculatorWorker::process() {
     qDebug() << "Gene calculation took" << elapsedMs << "milliseconds";
 
     // 发射信号，传递最优子代基因
-    emit resultReady(calculator.getOffspringSeed());
+    emit resultReady(calculator.getBreedingSeeds(), calculator.getOffspringSeed());
 
     // 计算完成，通知线程可以退出
     emit finished();

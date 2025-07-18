@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
     MainWindow w;
     w.show();
 
-    int seedCount = 100; // 设置要生成的随机种子数量
+    int seedCount = 80; // 设置要生成的随机种子数量
 
     // 创建一个新的线程，用于执行耗时的基因计算任务
     QThread *thread = new QThread;
@@ -36,16 +36,28 @@ int main(int argc, char *argv[]) {
     QObject::connect(thread, &QThread::finished, thread, &QObject::deleteLater);
 
     // 连接 worker 的结果信号，接收计算出的最优子代种子
-    QObject::connect(worker, &TestGeneCalculatorWorker::resultReady,
-                     [](const Seed &offspring) {
-        // 在这里处理结果，比如打印基因序列
+    QObject::connect(
+        worker, &TestGeneCalculatorWorker::resultReady,
+        [](const std::array<std::shared_ptr<Seed>, 4> &breeding_seeds,
+                                                           const Seed &offspring) {
+        // 打印最优父代种子基因
+        for (int i = 0; i < breeding_seeds.size(); ++i) {
+            QString parentGenes;
+            for (auto g : breeding_seeds[i]->genes_) {
+                parentGenes += QChar(GeneCalculator::geneTypeToChar(g));
+                parentGenes += ' ';
+            }
+            qDebug() << QString("Parent %1 genes:").arg(i + 1) << parentGenes;
+        }
+
+        // 打印子代基因
         QString result;
         for (auto g : offspring.genes_) {
             result += QChar(GeneCalculator::geneTypeToChar(g));
             result += ' ';
         }
         qDebug() << "Best offspring seed genes:" << result;
-    });
+        });
 
     // 启动线程，开始执行计算
     thread->start();
