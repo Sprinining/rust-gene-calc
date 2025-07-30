@@ -28,9 +28,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         seed.h
 
         testgenecalculatorworker.h testgenecalculatorworker.cpp
-        geneinputpanel.h geneinputpanel.cpp geneinputpanel.ui
-        genepanel.h genepanel.cpp genepanel.ui
-        genecalcpanel.h genecalcpanel.cpp genecalcpanel.ui
+        genelistpanel.h genelistpanel.cpp genelistpanel.ui
+        genesettingspanel.h genesettingspanel.cpp genesettingspanel.ui
+        style.qrc
+
+
+
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET rust-gene-calc APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

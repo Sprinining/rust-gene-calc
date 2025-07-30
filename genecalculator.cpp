@@ -51,8 +51,8 @@ void GeneCalculator::calculate() {
                         offspring_seed_ = std::move(offspring);
                     }
                     // 最优解已经找到
-                    // if (best_quality_ == 100)
-                    //     return;
+                    if (best_quality_ == 100)
+                        return;
                 }
             }
         }

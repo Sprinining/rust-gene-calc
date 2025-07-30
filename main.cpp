@@ -2,11 +2,19 @@
 #include "mainwindow.h"
 #include "testgenecalculatorworker.h"
 #include <QApplication>
+#include <QFile>
 #include <QThread>
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
+
+    QFile file(":/style/style.qss"); // 如果用资源文件，路径写 ":/xxx.qss"
+    if (file.open(QFile::ReadOnly)) {
+    QString styleSheet = QLatin1String(file.readAll());
+    qApp->setStyleSheet(styleSheet);
+    }
+
     w.show();
 
     int seedCount = 80; // 设置要生成的随机种子数量

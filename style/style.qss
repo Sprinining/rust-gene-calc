@@ -1,0 +1,60 @@
+/* 输入按钮 */
+QPushButton#pushButtonG,
+QPushButton#pushButtonY,
+QPushButton#pushButtonH,
+QPushButton#pushButtonX,
+QPushButton#pushButtonW {	
+	border: none;
+    border-radius: 15px; /* 半径 = 按钮宽/高的一半 */
+    font-size: 15px;              
+    font-weight: bold;           
+    color: white;
+}
+
+QPushButton#pushButtonG,
+QPushButton#pushButtonY,
+QPushButton#pushButtonH {
+    background-color: #5e861e;
+}
+
+QPushButton#pushButtonG:hover,
+QPushButton#pushButtonY:hover,
+QPushButton#pushButtonH:hover {
+    background-color: #486713; 
+}
+
+QPushButton#pushButtonX,
+QPushButton#pushButtonW  {
+    background-color: #9b4433;
+}
+
+QPushButton#pushButtonX:hover,
+QPushButton#pushButtonW:hover {
+    background-color: #7a3226; 
+}
+
+/* 基因显示 */
+QLabel#label_1,
+QLabel#label_2,
+QLabel#label_3,
+QLabel#label_4,
+QLabel#label_5,
+QLabel#label_6 {
+    background-color: #444444;      
+    color: white;                   
+    font-size: 25px;                        
+    border-radius: 25px;            
+    qproperty-alignment: AlignCenter; 
+}
+
+QLabel#label_space_1,
+QLabel#label_space_2,
+QLabel#label_space_3,
+QLabel#label_space_4,
+QLabel#label_space_5 {
+    font-size: 18px;       
+    font-weight: bold;    
+    font-family: "Microsoft YaHei"; 
+    color: black;     
+	qproperty-alignment: AlignCenter; 	
+}

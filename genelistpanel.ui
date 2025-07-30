@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GenePanel</class>
- <widget class="QWidget" name="GenePanel">
+ <class>GeneListPanel</class>
+ <widget class="QWidget" name="GeneListPanel">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "genelistpanel.h"
+#include "genesettingspanel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,5 +21,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    GeneListPanel *gene_list_panel_{nullptr};
+    GeneSettingsPanel *gene_settings_panel_{nullptr};
+
+    void initUI();
+
 };
 #endif // MAINWINDOW_H
