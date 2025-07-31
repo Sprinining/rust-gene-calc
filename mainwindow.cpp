@@ -21,4 +21,6 @@ void MainWindow::initUI() {
 void MainWindow::initSingals() {
     connect(gene_settings_panel_, &GeneSettingsPanel::seedInputFinished,
             gene_list_panel_, &GeneListPanel::addSeedItem);
+    connect(gene_settings_panel_, &GeneSettingsPanel::requestSeedCalculation,
+            gene_list_panel_, &GeneListPanel::onCalculateRequested);
 }

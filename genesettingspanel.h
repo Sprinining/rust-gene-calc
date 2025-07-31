@@ -43,6 +43,8 @@ signals:
     // 当用户完成种子输入并点击“录入”按钮时发射此信号
     // 传递 Seed 类型对象，方便外部接收处理
     void seedInputFinished(const Seed &seed);
+    // 点击计算按钮时触发
+    void requestSeedCalculation();
 };
 
 #endif // GENESETTINGSPANEL_H

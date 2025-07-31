@@ -4,6 +4,8 @@
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QRegularExpressionValidator>
+#include <QThread>
+#include <qthread.h>
 
 // 有效的基因字符集（大写）：G、Y、H、W、X
 const QString GeneSettingsPanel::validGenes = "GYHWX";
@@ -184,4 +186,6 @@ void GeneSettingsPanel::onPushButtonInputClicked() {
     emit seedInputFinished(seed);
 }
 
-void GeneSettingsPanel::onCalcButtonClicked() {}
+void GeneSettingsPanel::onCalcButtonClicked() {
+    emit requestSeedCalculation(); // 通知外部执行计算逻辑
+}
