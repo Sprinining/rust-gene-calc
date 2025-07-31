@@ -11,6 +11,7 @@ public:
 
     // 设置整个种子列表，替换当前数据
     void setSeeds(const QVector<Seed> &seeds);
+    Seed getSeed(int row) const;
 
     // 返回模型中的行数，即当前种子数量
     // parent 一般无效，因为是列表模型，默认参数表示根索引
@@ -28,5 +29,5 @@ public:
 
 private:
     // 内部存储的种子列表，每个 Seed 包含 6 个基因
-    QVector<Seed> m_seeds_;
+    QVector<Seed> seeds_;
 };
