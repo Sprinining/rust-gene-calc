@@ -31,6 +31,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         genelistpanel.h genelistpanel.cpp genelistpanel.ui
         genesettingspanel.h genesettingspanel.cpp genesettingspanel.ui
         style.qrc
+        seedmodel.h seedmodel.cpp
+        seeddelegate.h seeddelegate.cpp
 
 
 

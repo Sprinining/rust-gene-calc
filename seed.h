@@ -4,6 +4,7 @@
 #include <cstddef>    // std::size_t
 #include <functional> // std::hash
 #include <memory>
+#include <QMetaType>
 
 // Seed 结构体表示一个种子，包含6个基因
 struct Seed {
@@ -48,3 +49,5 @@ struct SeedPtrHash {
         return std::hash<Seed>{}(*s);
     }
 };
+
+Q_DECLARE_METATYPE(Seed)
