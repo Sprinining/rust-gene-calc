@@ -12,9 +12,6 @@ GeneSettingsPanel::GeneSettingsPanel(QWidget *parent)
     : QWidget(parent), ui(new Ui::GeneSettingsPanel) {
     ui->setupUi(this);
 
-    // 启用一键清空按钮（右上角 ×）
-    ui->lineEdit->setClearButtonEnabled(true);
-
     // 缓存顶部六个 QLabel 指针，分别对应六个圆形标签
     geneLabels_[0] = ui->label_1;
     geneLabels_[1] = ui->label_2;
@@ -23,32 +20,8 @@ GeneSettingsPanel::GeneSettingsPanel(QWidget *parent)
     geneLabels_[4] = ui->label_5;
     geneLabels_[5] = ui->label_6;
 
-    // 设置输入框的正则表达式限制：仅允许 GYHWX 字母（大小写都行），最多6位
-    QRegularExpression rx("[GYHWXgyhwx]{0,6}");
-    ui->lineEdit->setValidator(new QRegularExpressionValidator(rx, this));
-
-    // 连接五个基因按钮的点击信号到统一槽函数
-    connect(ui->pushButtonG, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onGeneButtonClicked);
-    connect(ui->pushButtonY, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onGeneButtonClicked);
-    connect(ui->pushButtonH, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onGeneButtonClicked);
-    connect(ui->pushButtonW, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onGeneButtonClicked);
-    connect(ui->pushButtonX, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onGeneButtonClicked);
-
-    // 监听输入框文字变化，实时更新上方标签
-    connect(ui->lineEdit, &QLineEdit::textChanged, this,
-            &GeneSettingsPanel::onLineEditTextChanged);
-
-    // “录入”按钮点击事件
-    connect(ui->pushButtonInput, &QPushButton::clicked, this,
-            &GeneSettingsPanel::onPushButtonInputClicked);
-
-    // 初始状态下将标签设为灰色问号
-    updateLabelsFromInput("");
+    initUI();
+    initSignals();
 }
 
 GeneSettingsPanel::~GeneSettingsPanel() { delete ui; }
@@ -127,13 +100,50 @@ QColor GeneSettingsPanel::geneColor(QChar gene) {
     case 'G':
     case 'Y':
     case 'H':
-        return QColor(94, 134, 30);   // #5e861e
+        return QColor(94, 134, 30); // #5e861e
     case 'W':
     case 'X':
-        return QColor(155, 68, 51);   // #9b4433
+        return QColor(155, 68, 51); // #9b4433
     default:
         return QColor(128, 128, 128); // 灰色
     }
+}
+
+void GeneSettingsPanel::initUI() {
+    // 启用一键清空按钮（右上角 ×）
+    ui->lineEdit->setClearButtonEnabled(true);
+    // 设置输入框的正则表达式限制：仅允许 GYHWX 字母（大小写都行），最多6位
+    QRegularExpression rx("[GYHWXgyhwx]{0,6}");
+    ui->lineEdit->setValidator(new QRegularExpressionValidator(rx, this));
+
+    // 初始状态下将标签设为灰色问号
+    updateLabelsFromInput("");
+}
+
+void GeneSettingsPanel::initSignals() {
+    // 连接五个基因按钮的点击信号到统一槽函数
+    connect(ui->pushButtonG, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onGeneButtonClicked);
+    connect(ui->pushButtonY, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onGeneButtonClicked);
+    connect(ui->pushButtonH, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onGeneButtonClicked);
+    connect(ui->pushButtonW, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onGeneButtonClicked);
+    connect(ui->pushButtonX, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onGeneButtonClicked);
+
+    // 计算
+    connect(ui->pushButtonCalc, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onCalcButtonClicked);
+
+    // 监听输入框文字变化，实时更新上方标签
+    connect(ui->lineEdit, &QLineEdit::textChanged, this,
+            &GeneSettingsPanel::onLineEditTextChanged);
+
+    // “录入”按钮点击事件
+    connect(ui->pushButtonInput, &QPushButton::clicked, this,
+            &GeneSettingsPanel::onPushButtonInputClicked);
 }
 
 // 当点击“录入”按钮时触发
@@ -173,3 +183,5 @@ void GeneSettingsPanel::onPushButtonInputClicked() {
     // 发送信号给外部模块
     emit seedInputFinished(seed);
 }
+
+void GeneSettingsPanel::onCalcButtonClicked() {}

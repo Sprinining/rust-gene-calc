@@ -27,6 +27,8 @@ private:
     void updateLabelsFromInput(const QString &text);
     // 根据基因字符返回对应的颜色，用于标签背景色设置
     QColor geneColor(QChar gene);
+    void initUI();
+    void initSignals();
 
 private slots:
     // 处理五个基因按钮点击事件
@@ -35,6 +37,7 @@ private slots:
     void onLineEditTextChanged(const QString &text);
     // 处理“录入”按钮点击事件
     void onPushButtonInputClicked();
+    void onCalcButtonClicked();
 
 signals:
     // 当用户完成种子输入并点击“录入”按钮时发射此信号
