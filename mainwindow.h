@@ -25,6 +25,6 @@ private:
     GeneSettingsPanel *gene_settings_panel_{nullptr};
 
     void initUI();
-
+    void initSingals();
 };
 #endif // MAINWINDOW_H

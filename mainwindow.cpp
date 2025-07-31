@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     initUI();
+    initSingals();
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -15,4 +16,9 @@ void MainWindow::initUI() {
     gene_settings_panel_ = new GeneSettingsPanel(this);
     ui->verticalLayoutGeneList->addWidget(gene_list_panel_);
     ui->verticalLayoutGeneSetting->addWidget(gene_settings_panel_);
+}
+
+void MainWindow::initSingals() {
+    connect(gene_settings_panel_, &GeneSettingsPanel::seedInputFinished,
+            gene_list_panel_, &GeneListPanel::addSeedItem);
 }

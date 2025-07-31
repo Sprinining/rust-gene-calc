@@ -15,6 +15,9 @@ int main(int argc, char *argv[]) {
     qApp->setStyleSheet(styleSheet);
     }
 
+    // 注册 Seed 类型，确保 QVariant 能正确识别
+    qRegisterMetaType<Seed>("Seed");
+
     w.show();
 
     int seedCount = 80; // 设置要生成的随机种子数量
