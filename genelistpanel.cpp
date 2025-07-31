@@ -79,32 +79,45 @@ void GeneListPanel::onCalculateRequested() {
 
     GeneCalculator calculator;
 
+    // 遍历模型中所有种子，添加到计算器
     for (int i = 0; i < model_->rowCount(); ++i) {
         Seed seed = model_->getSeed(i);
         calculator.addSeed(seed);
     }
 
+    // 执行杂交计算
     calculator.calculate();
 
+    // 获取四个父代种子
     const auto &breedingSeeds = calculator.getBreedingSeeds();
+    // 获取最优子代种子
     const Seed &offspring = calculator.getOffspringSeed();
 
-    // 打印输出调试
+    QString result;
+
+    // 遍历父代种子，拼接每个父代的基因字符串
     for (int i = 0; i < breedingSeeds.size(); ++i) {
         QString parentGenes;
         for (auto g : breedingSeeds[i]->genes_) {
+            // 将基因枚举转换成字符，并拼接空格分隔
             parentGenes += QChar(GeneCalculator::geneTypeToChar(g));
             parentGenes += ' ';
         }
-        qDebug() << QString("Parent %1 genes:").arg(i + 1) << parentGenes;
+        // 拼接父代基因信息，换行分隔
+        result += QString("Parent %1 genes: %2\n").arg(i + 1).arg(parentGenes);
     }
 
-    QString result;
+    // 拼接子代基因字符串
+    QString offspringGenes;
     for (auto g : offspring.genes_) {
-        result += QChar(GeneCalculator::geneTypeToChar(g));
-        result += ' ';
+        offspringGenes += QChar(GeneCalculator::geneTypeToChar(g));
+        offspringGenes += ' ';
     }
-    qDebug() << "Best offspring seed genes:" << result;
+    // 拼接子代基因信息
+    result += QString("Best offspring seed genes: %1\n").arg(offspringGenes);
 
-    // TODO: 你可以在这里更新 UI，比如设置到某个 QLabel 上显示结果
+    qDebug() << result;
+
+    // 通过信号将结果字符串发出去，供 UI 显示
+    emit calculationFinished(result);
 }

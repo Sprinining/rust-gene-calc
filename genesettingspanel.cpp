@@ -148,6 +148,10 @@ void GeneSettingsPanel::initSignals() {
             &GeneSettingsPanel::onPushButtonInputClicked);
 }
 
+void GeneSettingsPanel::displayCalculationResult(const QString &result) {
+    ui->textBrowser->setText(result);
+}
+
 // 当点击“录入”按钮时触发
 void GeneSettingsPanel::onPushButtonInputClicked() {
     QString inputText = ui->lineEdit->text();

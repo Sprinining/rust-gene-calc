@@ -30,6 +30,9 @@ private:
     void initUI();
     void initSignals();
 
+public slots:
+    void displayCalculationResult(const QString &result);
+
 private slots:
     // 处理五个基因按钮点击事件
     void onGeneButtonClicked();

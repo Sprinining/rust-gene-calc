@@ -23,4 +23,6 @@ void MainWindow::initSingals() {
             gene_list_panel_, &GeneListPanel::addSeedItem);
     connect(gene_settings_panel_, &GeneSettingsPanel::requestSeedCalculation,
             gene_list_panel_, &GeneListPanel::onCalculateRequested);
+    connect(gene_list_panel_, &GeneListPanel::calculationFinished,
+            gene_settings_panel_, &GeneSettingsPanel::displayCalculationResult);
 }

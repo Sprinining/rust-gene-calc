@@ -25,8 +25,11 @@ private:
 
 public slots:
     void onListViewContextMenu(const QPoint &pos);
-    void addSeedItem(const Seed &seed);  // 新增槽函数声明，参数可根据需求调整
+    void addSeedItem(const Seed &seed); // 新增槽函数声明，参数可根据需求调整
     void onCalculateRequested();
+
+signals:
+    void calculationFinished(const QString &resultString);
 };
 
 #endif // GENELISTPANEL_H
