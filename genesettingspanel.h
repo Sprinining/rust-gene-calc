@@ -1,9 +1,9 @@
 #ifndef GENESETTINGSPANEL_H
 #define GENESETTINGSPANEL_H
 
-#include <QWidget>
+#include "seed.h"
 #include <QLabel>
-#include "seed.h"  // 你的 Seed 类型定义头文件，确保包含了 AppConsts::GeneType
+#include <QWidget>
 
 namespace Ui {
 class GeneSettingsPanel;
@@ -16,23 +16,30 @@ public:
     explicit GeneSettingsPanel(QWidget *parent = nullptr);
     ~GeneSettingsPanel();
 
-signals:
-    void seedInputFinished(const Seed &seed);
-
-private slots:
-    void onGeneButtonClicked();
-    void onLineEditTextChanged(const QString &text);
-    void onPushButtonInputClicked();
-
 private:
     Ui::GeneSettingsPanel *ui;
 
-    static const QString validGenes;
+    static const QString validGenes; // 有效基因字符集，用于输入校验
 
-    QLabel* geneLabels_[6];  // 缓存上面6个标签指针
+    QLabel *geneLabels_[6]; // 缓存指向上方6个圆形标签的指针，提升访问效率
 
+    // 根据输入文本更新上方6个标签显示及样式
     void updateLabelsFromInput(const QString &text);
+    // 根据基因字符返回对应的颜色，用于标签背景色设置
     QColor geneColor(QChar gene);
+
+private slots:
+    // 处理五个基因按钮点击事件
+    void onGeneButtonClicked();
+    // 处理编辑框内容变化事件
+    void onLineEditTextChanged(const QString &text);
+    // 处理“录入”按钮点击事件
+    void onPushButtonInputClicked();
+
+signals:
+    // 当用户完成种子输入并点击“录入”按钮时发射此信号
+    // 传递 Seed 类型对象，方便外部接收处理
+    void seedInputFinished(const Seed &seed);
 };
 
 #endif // GENESETTINGSPANEL_H
