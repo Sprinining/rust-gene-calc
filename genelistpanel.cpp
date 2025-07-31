@@ -11,12 +11,6 @@ GeneListPanel::GeneListPanel(QWidget *parent)
     // 连接右键菜单信号槽
     connect(ui->listView, &QWidget::customContextMenuRequested, this,
             &GeneListPanel::onListViewContextMenu);
-
-    // 添加一个测试种子条目（用于运行时验证）
-    Seed newSeed{AppConsts::GeneType::G, AppConsts::GeneType::Y,
-                 AppConsts::GeneType::H, AppConsts::GeneType::X,
-                 AppConsts::GeneType::W, AppConsts::GeneType::G};
-    model_->appendSeed(newSeed);
 }
 
 // 初始化模型、委托、视图设置和初始数据
@@ -31,20 +25,6 @@ void GeneListPanel::initUI() {
 
     // 设置右键菜单触发策略
     ui->listView->setContextMenuPolicy(Qt::CustomContextMenu);
-
-    // 构造一些测试用的种子数据
-    QVector<Seed> seeds = {
-        Seed({AppConsts::GeneType::G, AppConsts::GeneType::Y,
-              AppConsts::GeneType::H, AppConsts::GeneType::X,
-              AppConsts::GeneType::W, AppConsts::GeneType::G}),
-        Seed({AppConsts::GeneType::Y, AppConsts::GeneType::Y,
-              AppConsts::GeneType::H, AppConsts::GeneType::H,
-              AppConsts::GeneType::X, AppConsts::GeneType::W}),
-        // 更多 Seed 可按需添加
-    };
-
-    // 将数据设置进模型
-    model_->setSeeds(seeds);
 }
 
 GeneListPanel::~GeneListPanel() { delete ui; }
