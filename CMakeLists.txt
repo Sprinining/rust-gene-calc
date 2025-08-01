@@ -23,6 +23,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(rust-gene-calc
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${WINDOWS_ICON_RC}
         genecalculator.h genecalculator.cpp
         consts.h
         seed.h
@@ -33,10 +34,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         style.qrc
         seedmodel.h seedmodel.cpp
         seeddelegate.h seeddelegate.cpp
-
-
-
-
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET rust-gene-calc APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -52,6 +49,7 @@ else()
     else()
         add_executable(rust-gene-calc
             ${PROJECT_SOURCES}
+            ${WINDOWS_ICON_RC}
         )
     endif()
 endif()
