@@ -12,6 +12,8 @@ int main(int argc, char *argv[]) {
     qApp->setStyleSheet(styleSheet);
     }
 
+    w.setWindowIcon(QIcon(":/icons/favicon.ico"));
+
     // 注册 Seed 类型，确保 QVariant 能正确识别
     qRegisterMetaType<Seed>("Seed");
 
