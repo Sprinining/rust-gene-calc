@@ -60,7 +60,7 @@ void GeneListPanel::onCalculateRequested() {
     // 验证种子数量是否满足计算要求，至少需要4个种子
     if (model_->rowCount() < 4) {
         qDebug() << "至少需要4个种子才能进行计算。";
-        emit calculationFinished("错误：至少需要4个种子才能进行计算。");
+        emit calculationFinished("至少需要4个种子才能进行计算！");
         return;
     }
 

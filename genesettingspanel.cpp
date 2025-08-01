@@ -158,9 +158,10 @@ void GeneSettingsPanel::onPushButtonInputClicked() {
 
     // 必须满6个基因才可录入
     if (inputText.length() != 6) {
-        // TODO: 可加弹窗提醒
+        ui->textBrowser->setText(tr("一个种子至少6个基因！"));
         return;
     }
+    ui->textBrowser->setText("");
 
     Seed seed;
     for (int i = 0; i < 6; ++i) {
