@@ -41,16 +41,14 @@ void GeneListPanel::onListViewContextMenu(const QPoint &pos) {
         menu.exec(ui->listView->viewport()->mapToGlobal(pos)); // 弹出菜单
 
     // 如果点击了“删除”，则删除对应的模型数据行
-    if (selectedAction == delAction) {
+    if (selectedAction == delAction)
         model_->removeSeed(index.row());
-    }
 }
 
 // 公共接口，用于从外部添加新的种子条目
 void GeneListPanel::addSeedItem(const Seed &seed) {
-    if (model_) {
+    if (model_)
         model_->appendSeed(seed);
-    }
 }
 
 void GeneListPanel::onCalculateRequested() {

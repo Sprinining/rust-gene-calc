@@ -43,8 +43,7 @@ Seed TestGeneCalculatorWorker::generateRandomSeed() {
     static std::uniform_int_distribution<int> dist(0, 4); // 0~4 对应5种基因
 
     Seed s;
-    for (auto &gene : s.genes_) {
+    for (auto &gene : s.genes_)
         gene = static_cast<AppConsts::GeneType>(dist(gen));
-    }
     return s;
 }
